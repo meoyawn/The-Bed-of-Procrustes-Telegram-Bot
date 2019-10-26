@@ -34,7 +34,7 @@ private class Bot(val aphorisms: List<String>) : TelegramLongPollingBot() {
                     It is also preferable to select these randomly.
                     
                     Use /random.
-                """.trimIndent()
+                    """.trimIndent()
                 )
 
             "/random" ->
