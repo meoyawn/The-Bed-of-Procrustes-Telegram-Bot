@@ -12,7 +12,7 @@ echo 'BOT_TOKEN=foo` > gradle.properties
 
 ## Deploy
 
-Just upload `build/libs/procrustes-1.0.jar`
+Upload and run `build/libs/procrustes-1.0-all.jar`
 
 ### Heroku
 
