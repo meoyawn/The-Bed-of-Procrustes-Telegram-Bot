@@ -1,0 +1,47 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.50'
+    id 'application'
+    id "com.github.ben-manes.versions" version "0.27.0"
+    id "com.github.johnrengelman.shadow" version "5.1.0"
+    id 'de.fuerstenau.buildconfig' version '1.1.8'
+    id 'idea'
+}
+
+group 'procrustes'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.telegram:telegrambots:4.4.0.1"
+}
+
+buildConfig {
+    buildConfigField 'String', 'BOT_TOKEN', project.BOT_TOKEN
+}
+
+final javer = JavaVersion.VERSION_11
+sourceCompatibility = javer
+targetCompatibility = javer
+compileKotlin { kotlinOptions.jvmTarget = javer }
+compileTestKotlin { kotlinOptions.jvmTarget = javer }
+
+if (System.env.CI) {
+    compileKotlin {
+        kotlinOptions {
+            allWarningsAsErrors = true
+        }
+    }
+}
+
+mainClassName = "procrustes.MainKt"
+
+shadowJar {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+task stage(dependsOn: "shadowJar")
